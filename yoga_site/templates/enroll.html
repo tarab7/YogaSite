@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css" media="screen"> 
+    <title>Enroll</title>
+</head>
+<body>
+    
+    <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content" style="margin-top: -2.8cm;">
+                    
+                    <div class="form-items" style="padding-top: 0%;">
+                       {% if errorAge %}		                            
+                            <p style="text-align: center; color: red; font-size: 15px;">Your should be between 18 and 65 to take part in this program!!!</p>                    
+                        {% endif %}
+                        {% if error %}       
+                                <p  style="text-align: center; color: red; font-size: 15px;">Name or Email already used!!!</p>
+                        {% endif %}
+                        {% if saved %}       
+                                <p  style="text-align: center; color: green; font-size: 20px;">Registered!!!</p>
+                        {% endif %}
+
+                        <h3>Register Today</h3>
+                        <p>Fill in the data below.</p>
+
+                        <form id="form_input" name="form1" method="post">
+                            {% csrf_token %}
+                            <div class="col-md-12">
+                               <input class="form-control" type="text" name="name" placeholder="Full Name" style="width: 70%" required>
+                            
+                            </div>
+
+                            <div class="col-md-12">
+                                <input class="form-control" type="email" name="email" placeholder="E-mail Address" style="width: 70%" required>
+                                 
+                            </div>
+
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" name="phnno" placeholder="Phone Number" style="width: 70%" required>
+                                 
+                            </div>
+
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" name="age" placeholder="Age" style="width: 70%" required>
+                                 
+                            </div>
+
+                           <div class="col-md-12">
+                                <select class="form-select mt-3" name="batch" required style="width: 70%">
+                                      <option selected disabled value="">Batch</option>
+                                      <option value="6-7 AM">6-7 AM</option>
+                                      <option value="7-8 AM">7-8 AM</option>
+                                      <option value="8-9 AM">8-9 AM</option>
+                                      <option value="5-6 PM">5-6 PM</option>
+                               </select>
+                               
+                           </div>
+
+
+                           <div class="col-md-12">
+                              <input class="form-control" type="password" name="password" style="width: 70%" placeholder="Password" required>
+                               
+                           </div>
+
+
+                           <div class="col-md-12 mt-3">
+                            <label class="mb-3 mr-1" for="gender" >Gender: </label>
+
+                            <input type="radio" class="btn-check" name="genderM" id="male" autocomplete="off">
+                            <label class="btn btn-sm btn-outline-secondary" for="male">Male</label>
+
+                            <input type="radio" class="btn-check" name="genderF" id="female" autocomplete="off">
+                            <label class="btn btn-sm btn-outline-secondary" for="female">Female</label>
+
+                            <input type="radio" class="btn-check" name="genderP" id="secret" autocomplete="off">
+                            <label class="btn btn-sm btn-outline-secondary" for="secret">Secret</label>
+                               
+                            </div>
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                          <label class="form-check-label">I confirm that all data are correct</label>
+                         <!--<div class="invalid-feedback">Please confirm that the entered data are all correct!</div>-->
+                        </div>
+
+                            <p style="text-align: left; font-size: 15px; color: darkgray;">Already have an account? Click here to <b><a href="/login" style="color: white; text-decoration: underline; cursor: pointer;">Login</a></b>.</p>
+                        
+                            <div class="form-button mt-3">
+                                <input type="submit" id="submit" name="Validate" value="PAY 500" style="background-color: green; color: white; border:green; cursor: pointer;" onclick="return ValidateAll(document.form1.email, document.form1.phnno, document.form1.age)"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+    
+    
+    
+
+   
+    
+
+
+<script>
+    (function () {
+    'use strict'
+    const forms = document.querySelectorAll('.requires-validation')
+    Array.from(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+    
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+    
+    function ValidateAll(email, phnno, age)
+    {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        var phoneno = /^\d{10}$/;
+        var a=Number(age, 10);
+
+        //var p=parseInt(phnno)
+        if (!email.value.match(validRegex))
+        {
+            alert("Invalid email address!");
+            document.form1.email.focus();
+            return false;
+        }
+        if(!phnno.value.match(phoneno))
+        {
+            alert("Invalid mobile number!");
+            document.form1.phnno.focus();
+            return false;
+        }
+        if(a<18 || a>65)
+        {
+            alert("Your age should be between 18 and 65 for our program!");
+            document.form1.age.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

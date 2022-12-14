@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css" media="screen"> 
+    <title>Login</title>
+
+</head>
+<body>
+    <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content" style="padding-top: 0%;">
+                    <div class="form-items"  style="padding-top: 5%;">
+                        {% if usernotexist %}
+                            <p style="text-align: center; color: red; font-size: 15px;">This user does not exist!!!</p>
+                        {% endif %}
+                        {% if wrongPswd %}
+                            <p style="text-align: center; color: red; font-size: 15px;">Incorrect username or password!!!</p>
+                        {% endif %}
+                        <h3>Login</h3>
+                        <form id="form_input" name="form1" method="post">
+                            {% csrf_token %}
+                            <div class="col-md-12">
+                               <input class="form-control" type="text" name="name" placeholder="User Name" style="width: 70%" required>
+                            
+                            </div>
+
+                           <div class="col-md-12">
+                              <input class="form-control" type="password" name="password" placeholder="Password" style="width: 70%" required>
+                               
+                           </div>
+
+                           <div class="already" style="text-align: center; color: white; font-size: small;">
+                            <p style="color: darkgrey;">Not have an account? Click here to <b><a href="/enroll" style="color: white; text-decoration: underline; cursor: pointer;">Register</a></b>.</p>
+                        </div>
+
+                            <br>
+                            <div class="form-button mt-3">
+                                <input type="submit" id="submit" name="Validate" value="Login" style="background-color: green; color: white; border:green; cursor: pointer;"/>
+                            </div>
+                        </form>
+                        
+                        
+                    </div>
+          
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    			            
+    
+
+
+<script>
+    (function () {
+    'use strict'
+    const forms = document.querySelectorAll('.requires-validation')
+    Array.from(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+    
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+    
+</script>
+</body>
+</html>
