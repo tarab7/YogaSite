@@ -42,3 +42,5 @@ I developed a Django app is a responsive website for the individual customers to
 
 
 ER Diagram:-
+
+![my_project_visualized](https://user-images.githubusercontent.com/106686819/207701459-8bf2f5ec-c840-42a9-83f8-0d6502a4c29f.png)
